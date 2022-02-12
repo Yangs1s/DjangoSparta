@@ -31,10 +31,10 @@ on:
 
 
     - name: Setup python environment
-        id: setup-python
-        uses: actions/setup-python@v2
-        with:
-        python-version: 3.9.9
+      id: setup-python
+      uses: actions/setup-python@v2
+      with:
+      python-version: 3.9.9
 
     - name: Install Poetry
       run: |

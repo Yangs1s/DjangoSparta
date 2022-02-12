@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "tabom.apps.TabosConfig"
 ]
 
 MIDDLEWARE = [
@@ -83,14 +84,14 @@ WSGI_APPLICATION = "DjangoSparta.wsgi.application"
 pymysql.install_as_MySQLdb()
 
 DATABASES = {
-"default": {
-"ENGINE": "django.db.backends.mysql",
-"NAME": "DjangoSparta",
-"USER": "root",
-"PASSWORD": "122521",
-"HOST": "localhost",
-"PORT": "3306",
-}
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "DjangoSparta",
+        "USER": "root",
+        "PASSWORD": "122521",
+        "HOST": "localhost",
+        "PORT": "3306",
+    }
 }
 
 # Password validation
@@ -133,3 +134,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+try:
+    from DjangoSparta.local_settings import *
+except ImportError:
+    pass

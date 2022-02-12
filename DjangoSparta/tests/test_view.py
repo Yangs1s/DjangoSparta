@@ -6,3 +6,4 @@ class TestView(TestCase):
         result = self.client.get("/api/add", {"a": 1, "b": 3})
         self.assertEqual(result.status_code, 200)
         self.assertEqual(result.json(), {"result": 4})
+    print("hi")

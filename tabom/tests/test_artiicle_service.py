@@ -3,6 +3,7 @@ from django.test import TestCase
 from tabom.models import Like, User
 from tabom.models.article import Article
 from tabom.services.article_service import (
+    create_an_article,
     delete_an_article,
     get_an_article,
     get_article_list,
@@ -11,10 +12,21 @@ from tabom.services.like_service import do_like
 
 
 class TestArticleService(TestCase):
+    def test_you_can_create_an_artice(self) -> None:
+
+        # Given
+        title = "test_title"
+
+        # When
+        article = create_an_article(title)
+
+        # Then
+        self.assertEqual(article.title, title)
+
     def test_you_can_get_an_article_by_id(self) -> None:
         # Given
         title = "test_title"
-        article = Article.objects.create(title=title)
+        article = create_an_article(title)
 
         # When
         result_article = get_an_article(0, article.id)

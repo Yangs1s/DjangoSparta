@@ -13,7 +13,6 @@ from tabom.services.like_service import do_like
 
 class TestArticleService(TestCase):
     def test_you_can_create_an_artice(self) -> None:
-
         # Given
         title = "test_title"
 
@@ -50,9 +49,9 @@ class TestArticleService(TestCase):
         do_like(user.id, articles[-1].id)
 
         # When
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(2):
             result_articles = get_article_list(user.id, 0, 10)
-            result_counts = [a.like_set.count() for a in result_articles]
+            result_counts = [a.like_count for a in result_articles]
 
         # Then
         self.assertEqual(len(result_articles), 10)
@@ -92,7 +91,6 @@ class TestArticleService(TestCase):
         self.assertEqual(0, len(articles[0].my_likes))
 
     def test_you_can_delete_an_article(self) -> None:
-
         # Given
         user = User.objects.create(name="user1")
         article = Article.objects.create(title="artice1")

@@ -62,7 +62,7 @@ class TestLikeService(TestCase):
 
         # Then
         article = Article.objects.get(id=article.id)
-        self.assertEqual(1, article.like_set.count())
+        self.assertEqual(1, article.like_count)
 
     def test_a_use_can_undo_like(self) -> None:
         user = User.objects.create(name="test")

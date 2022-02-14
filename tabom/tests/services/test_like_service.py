@@ -1,9 +1,10 @@
 from django.db import IntegrityError
 from django.test import TestCase
 
-from tabom.models import Like
+from tabom.models import Like, user
 from tabom.models.article import Article
 from tabom.models.user import User
+from tabom.services.article_service import create_an_article
 from tabom.services.like_service import do_like, undo_like
 
 
@@ -34,15 +35,22 @@ class TestLikeService(TestCase):
             like2 = do_like(user.id, article.id)
 
     def test_it_should_raise_exception_when_like_an_user_does_not_exist(self) -> None:
-
         # Given
         invalid_user_id = 9988
-        article = Article.objects.create(title="test_title")
+        article = create_an_article(title="test_title")
 
         # Expect
-
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(User.DoesNotExist):  # DoesNotExist 사용
             do_like(invalid_user_id, article.id)
+
+    def test_it_should_raise_exception_when_like_an_article_does_not_exist(self) -> None:
+        # Given
+        user = User.objects.create(name="test")
+        invalid_article_id = 9988
+
+        # Expect
+        with self.assertRaises(Article.DoesNotExist):  # DoesNotExist 사용
+            do_like(user.id, invalid_article_id)
 
     def test_like_count_should_increase(self) -> None:
         # Given: User,Article을 주고
